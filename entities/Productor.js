@@ -1,10 +1,9 @@
 export default class Productor {
 
-   constructor(name, description, price, type, inStock = 0) {
+   constructor(name, description, price, inStock = 0) {
       this.name = name;
       this.description = description;
       this.price = price;
-      this.type = type;
       this.inStock = inStock;
    }
 

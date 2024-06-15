@@ -12,12 +12,11 @@ export default class Database {
    }
 
    saveAuthor(author) {
-      let authorExist = this.#storage.authors.find((a) => a.cod = author.cod);
+      let authorExist = this.#storage.authors.find((a) => a.cod === author.cod);
 
       if (!authorExist) {
          this.#storage.authors.push(author);
       }
-
    }
 
    findBookByISBM(ISBM) {
@@ -41,7 +40,9 @@ export default class Database {
 
    removeBooksFromStock(ISBM, quantity) {
       const book = this.findBookByISBM(ISBM);
-      book.removeBooksFromStock(quantity);
+      if (quantity <= book.inStock) {
+         book.removeFromStock(quantity);
+      }
    }
 
    findPosterByCod(cod) {
@@ -66,7 +67,10 @@ export default class Database {
 
    removePostersFromStock(cod, quantity) {
       const poster = this.findPosterByCod(cod);
-      poster.removeBooksFromStock(quantity);
+
+      if (quantity <= poster.inStock) {
+         poster.removeFromStock(quantity);
+      }
    }
 
    saveClient(client) {
